@@ -1,0 +1,50 @@
+import random,time
+
+quizCount = 10
+correctQue = 0
+operators = {"Additon" : "+", "Substraction" : "-", "Multiplication" : "*"}
+
+print('Lets test your mathamatics ability!')
+print('Be quick and answer within 8 seconds')
+print('Game starting is 5 seconds...')
+print(time.sleep(5))   
+
+gStart = time.time()
+
+for questions in range(quizCount):
+    reTry = 3
+    a = random.randint(0,9)
+    b = random.randint(0,9)
+    operator = random.choice(list(operators))
+
+    print(f'What is {a} {operators[operator]} {b}?')
+
+    cpuAnswer = eval(f"{a} {operators[operator]} {b}")
+
+    begin = time.time()
+
+    answer = input('Enter your answer: ')
+
+    expiry = time.time() - begin
+
+    while expiry < 8: 
+        if int(answer) == int(cpuAnswer):
+            print('Correct!')
+            correctQue += 1
+            break
+
+        else:
+            print(f'Entered answer is incorrect. Try again! {reTry} Retries available')
+            answer = input()
+            reTry -= 1
+            if reTry == 0:
+                break
+            expiry = time.time() - begin
+
+    if expiry >= 8:
+        print('Your time is over!')
+
+gEnd = time.time() - gStart
+
+print(f'Quiz ended. You answered {correctQue} questions correctly out of {quizCount}.')
+print(f'You finished this quiz in {int(gEnd)} seconds!')
