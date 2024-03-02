@@ -1,0 +1,39 @@
+import pyinputplus as py
+
+print('Make your sandwich as you want!')
+print('Select ingredients from belove!')
+
+totalCost = 0
+prices = {'Wheat':30, 'White':15, 'Sourdough':20,
+        'White Bean':40, 'Chickpea':30, 'Peanut':30, 'Tofu':20,
+        'Cheddar':10, 'Swisa':20, 'Mozzarella':20,
+        'Mayo':20, 'Mustard':10, 'Lettuce':10, 'Tomato':10}
+
+while True:
+    order = {}
+
+    order['bread'] = py.inputMenu(['Wheat','White','Sourdough'],prompt='Which type of bread would you like?\n',numbered=True)
+    order['protein'] = py.inputMenu(['White Bean','Chickpea','Peanut','Tofu'],prompt='Which type of protein would you like?\n',numbered=True)
+
+    want_cheese = py.inputYesNo(prompt='Want some cheese?\n')
+    if want_cheese=='yes':
+        order['cheese'] = py.inputMenu(['Cheddar','Swisa','Mozzarella'],prompt='Select cheese type: \n',blank=False,numbered=True)
+
+    want_extra = py.inputYesNo(prompt='Do you want Mayo, Mustard, Lettuce or Tomato?\n')
+    if want_extra=='yes':
+        order['extra'] = py.inputMenu(['Mayo','Mustard','Lettuce','Tomato'],prompt='Select from belove: \n',blank=False,numbered=True)
+
+    print('How much sanwich do you want?')
+    orderCount = py.inputInt()
+
+    for choice in order:
+        if order[choice] in prices.keys():
+            totalCost += prices[order[choice]]
+
+
+    print('Do you want something else?')
+    repeat = py.inputYesNo()
+    if repeat == 'no':
+        break
+
+print(f'Total cost is ₹ {totalCost*orderCount}/- only')
